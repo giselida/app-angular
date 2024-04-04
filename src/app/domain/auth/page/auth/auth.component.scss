@@ -1,0 +1,48 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(201, 218, 255, 1) 15%,
+    rgba(245, 247, 246, 1) 100%
+  );
+
+  .mat-mdc-card-content {
+    display: flex;
+    padding: 0 8px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  button {
+    width: 100%;
+  }
+  mat-card {
+    min-width: 500px;
+    padding: 20px;
+  }
+  mat-card-header {
+    margin-bottom: 20px;
+  }
+  span {
+    padding: 8px;
+    display: block;
+  }
+  a {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--mat-option-selected-state-label-text-color);
+  }
+  [mat-card-image] {
+    position: absolute;
+    top: -100px;
+    right: 160px;
+    width: 180px;
+    height: 180px;
+  }
+  mat-form-field + mat-form-field {
+    margin-bottom: 10px;
+  }
+}
