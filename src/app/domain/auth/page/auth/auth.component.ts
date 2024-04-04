@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -10,10 +10,15 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+} from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { CustomValidators } from '../../validators/one-special-character.validator';
 
 @Component({
   selector: 'app-auth',
@@ -30,25 +35,35 @@ import { Router, RouterModule } from '@angular/router';
     MatButtonModule,
     NgOptimizedImage,
   ],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+  ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
   isSignUp: boolean = false;
-  patternPassword =
-    /^(?=.*[!@#$%^&*()-_+=|{}[\]:;'"<>,.?/~])(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
   patternEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  router = inject(Router);
+  patternName = /^[a-zA-Z ]+$/;
+  oneSpecialCharacterPattern = /([!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/;
+  oneUpperCasePattern = /.*[A-Z].*/;
+  oneNumberPattern = /.*\d.*/;
+
   formGroupLogin = new FormGroup({
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      Validators.pattern('^[a-zA-Z]+$'),
+      CustomValidators.pattern(this.patternName, 'name'),
     ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(this.patternPassword),
+      CustomValidators.pattern(this.oneNumberPattern, 'oneNumber'),
+      CustomValidators.pattern(
+        this.oneSpecialCharacterPattern,
+        'oneSpecialCharacter'
+      ),
+      CustomValidators.pattern(this.oneUpperCasePattern, 'oneUpperCase'),
     ]),
   });
 
@@ -56,22 +71,27 @@ export class AuthComponent {
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      Validators.pattern('^[a-zA-Z]+$'),
+      CustomValidators.pattern(this.patternName, 'name'),
     ]),
     lastName: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      Validators.pattern('^[a-zA-Z]+$'),
+      CustomValidators.pattern(this.patternName, 'lastName'),
     ]),
     email: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
-      Validators.pattern(this.patternEmail),
+      CustomValidators.pattern(this.patternEmail, 'email'),
     ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(this.patternPassword),
+      CustomValidators.pattern(this.oneNumberPattern, 'oneNumber'),
+      CustomValidators.pattern(
+        this.oneSpecialCharacterPattern,
+        'oneSpecialCharacter'
+      ),
+      CustomValidators.pattern(this.oneUpperCasePattern, 'oneUpperCase'),
     ]),
   });
 
@@ -81,43 +101,32 @@ export class AuthComponent {
     if (minlength) {
       return `Este campo deve conter ${minlength.actualLength}/${minlength.requiredLength} caracteres`;
     }
+
     if (control.hasError('required'))
       return 'Este campo é obrigatório, Insira um valor ';
-    if (
-      control === this.formGroupLogin.get('name') ||
-      control === this.formGroupSingUp.get('name')
-    ) {
+
+    if (control.hasError('name')) {
       return 'O nome deve conter apenas letras';
     }
-    if (control === this.formGroupSingUp.get('lastName')) {
+    if (control.hasError('lastName')) {
       return 'O sobrenome deve conter apenas letras';
     }
-    if (control === this.formGroupSingUp.get('email')) {
+    if (control.hasError('email')) {
       return 'Por favor, insira um email válido';
     }
 
-    if (
-      control === this.formGroupLogin.get('password') ||
-      control === this.formGroupSingUp.get('password')
-    ) {
-      const passwordValue = control.value;
+    if (control.hasError('oneSpecialCharacter')) {
+      return 'A senha deve conter pelo menos um caractere especial';
+    }
 
-      if (!/[A-Z]/.test(passwordValue)) {
-        return 'A senha deve conter pelo menos uma letra maiúscula';
-      }
+    if (control.hasError('oneUpperCase')) {
+      return 'A senha deve conter pelo menos uma letra maiúscula';
+    }
 
-      if (!/\d/.test(passwordValue)) {
-        return 'A senha deve conter pelo menos um número';
-      }
-
-      if (!/[!@#$%^&*()-_+=|{}[\]:;'"<>,.?/~]/.test(passwordValue)) {
-        return 'A senha deve conter pelo menos um caractere especial';
-      }
+    if (control.hasError('oneNumber')) {
+      return 'A senha deve conter pelo menos um número';
     }
 
     return '';
-  }
-  login() {
-    this.router.navigate(['/transaction']);
   }
 }
