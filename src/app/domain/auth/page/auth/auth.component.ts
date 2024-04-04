@@ -95,11 +95,24 @@ export class AuthComponent {
     if (control === this.formGroupSingUp.get('email')) {
       return 'Por favor, insira um email válido';
     }
+
     if (
       control === this.formGroupLogin.get('password') ||
       control === this.formGroupSingUp.get('password')
     ) {
-      return 'A senha deve conter pelo menos uma letra maiúscula, um número e um caractere especial';
+      const passwordValue = control.value;
+
+      if (!/[A-Z]/.test(passwordValue)) {
+        return 'A senha deve conter pelo menos uma letra maiúscula';
+      }
+
+      if (!/\d/.test(passwordValue)) {
+        return 'A senha deve conter pelo menos um número';
+      }
+
+      if (!/[!@#$%^&*()-_+=|{}[\]:;'"<>,.?/~]/.test(passwordValue)) {
+        return 'A senha deve conter pelo menos um caractere especial';
+      }
     }
 
     return '';
