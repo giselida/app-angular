@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +25,7 @@ import { SLIDE_IN_OUT } from './shared/animations/slid-in-out';
     MatSidenavModule,
     MatTooltipModule,
     MatBadgeModule,
+    NgOptimizedImage,
   ],
   animations: [SLIDE_IN_OUT],
 })
