@@ -1,7 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -42,10 +41,10 @@ import { CustomValidators } from '../../../../shared/validators/custom.validator
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss',
+  templateUrl: './auth.page.html',
+  styleUrl: './auth.page.scss',
 })
-export class AuthComponent {
+export class AuthPage {
   isSignUp: boolean = false;
   patternEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   patternName = /^[a-zA-ZÀ-ÿ\s]+$/;
@@ -96,39 +95,4 @@ export class AuthComponent {
       CustomValidators.pattern(this.oneUpperCasePattern, 'oneUpperCase'),
     ]),
   });
-
-  getErrorMessage(control: AbstractControl) {
-    const minlength = control.errors?.['minlength'];
-
-    if (minlength) {
-      return `Este campo deve conter no mínimo ${minlength.actualLength}/${minlength.requiredLength} caracteres`;
-    }
-
-    if (control.hasError('required'))
-      return 'Este campo é obrigatório, Insira um valor ';
-
-    if (control.hasError('name')) {
-      return 'O nome deve conter apenas letras';
-    }
-    if (control.hasError('lastName')) {
-      return 'O sobrenome deve conter apenas letras';
-    }
-    if (control.hasError('email')) {
-      return 'Por favor, insira um email válido';
-    }
-
-    if (control.hasError('oneSpecialCharacter')) {
-      return 'A senha deve conter pelo menos um caractere especial';
-    }
-
-    if (control.hasError('oneUpperCase')) {
-      return 'A senha deve conter pelo menos uma letra maiúscula';
-    }
-
-    if (control.hasError('oneNumber')) {
-      return 'A senha deve conter pelo menos uma letra maiúscula';
-    }
-
-    return '';
-  }
 }
