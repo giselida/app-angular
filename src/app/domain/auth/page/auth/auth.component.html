@@ -1,4 +1,4 @@
-<mat-card [formGroup]="formGroupSingUp" *unless="!isSignUp">
+<mat-card class="card" [formGroup]="formGroupSingUp" *unless="!isSignUp">
   <div class="cyber-security">
     <img
       mat-card-image
@@ -81,6 +81,11 @@
   </mat-card-actions>
 </mat-card>
 <mat-card *unless="!isSignUp">
+  <mat-card-header>
+    <mat-card-title class="title-align-center">
+      Você já tem uma conta ?</mat-card-title
+    >
+  </mat-card-header>
   <img
     mat-card-image
     ngSrc="../../../../../assets/images/sign-up-rafiki.png"
@@ -89,13 +94,18 @@
     priority
     alt="login-concept-illustration"
   />
-  <span>
-    Você já tem uma conta
-    <a (click)="isSignUp = !isSignUp"> faça o login </a>
-  </span>
+
+  <a (click)="isSignUp = !isSignUp">
+    <button mat-raised-button color="primary">faça o login</button>
+  </a>
 </mat-card>
 
-<mat-card [formGroup]="formGroupLogin" *unless="isSignUp">
+<mat-card
+  class="card"
+  [formGroup]="formGroupLogin"
+  *unless="isSignUp"
+  class="login"
+>
   <div class="cyber-security">
     <img
       mat-card-image
@@ -157,6 +167,11 @@
   </mat-card-actions>
 </mat-card>
 <mat-card *unless="isSignUp">
+  <mat-card-header>
+    <mat-card-title class="title-align-center">
+      Você é novo por aqui ?</mat-card-title
+    >
+  </mat-card-header>
   <img
     mat-card-image
     ngSrc="../../../../../assets/images/login-rafiki.png"
@@ -165,8 +180,8 @@
     priority
     alt="login-concept-illustration"
   />
-  <span>
-    Você é novo por aqui ?
-    <a (click)="isSignUp = !isSignUp"> Crie uma conta </a>
-  </span>
+
+  <a (click)="isSignUp = !isSignUp">
+    <button mat-raised-button color="primary">Crie uma conta</button>
+  </a>
 </mat-card>

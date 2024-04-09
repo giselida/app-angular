@@ -10,13 +10,23 @@
     rgba(201, 218, 255, 1) 15%,
     rgba(245, 247, 246, 1) 100%
   );
-
+  .login {
+    mat-card-content {
+      margin-top: 100px;
+    }
+  }
+  .card {
+    mat-card-title {
+      margin-bottom: 20px;
+    }
+  }
   mat-card {
     display: flex;
     padding: 10px;
     max-width: 500px;
     width: 100%;
     min-height: 500px;
+
     .cyber-security {
       position: relative;
       [mat-card-image] {
@@ -36,20 +46,19 @@
     mat-card-content {
       display: flex;
       flex-direction: column;
-      margin-top: 100px;
     }
     mat-card-actions {
       button {
         width: 100%;
       }
     }
-    span {
-      padding: 8px;
-      display: block;
-      a {
-        cursor: pointer;
-        font-weight: 500;
-        color: var(--mat-option-selected-state-label-text-color);
+
+    a {
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--mat-option-selected-state-label-text-color);
+      button {
+        width: 100%;
       }
     }
   }
