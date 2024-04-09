@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { SLIDE_IN_OUT } from './shared/animations/slid-in-out';
+import { UnlessDirective } from './shared/directives/unless/unless.directive';
 
 @Component({
   selector: 'app-root',
@@ -26,15 +27,16 @@ import { SLIDE_IN_OUT } from './shared/animations/slid-in-out';
     MatTooltipModule,
     MatBadgeModule,
     NgOptimizedImage,
+    UnlessDirective,
   ],
   animations: [SLIDE_IN_OUT],
 })
 export class AppComponent {
   pageService = inject(Title);
   router = inject(Router);
-  sideNav: boolean = false;
+  sideNav = false;
   isMode: boolean = JSON.parse(localStorage.getItem('dark-mode') ?? 'false');
-
+  condition = true;
   menuItems = [
     {
       pageName: 'Transações',

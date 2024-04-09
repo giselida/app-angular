@@ -1,8 +1,20 @@
+@import "app/shared/scss/reset.scss";
 html,
 body {
   height: 100%;
 }
 body {
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mat-erros {
+  position: relative;
+}
+[class*="-error"] {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
 }

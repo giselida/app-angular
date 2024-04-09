@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="!isAuthPage">
+<mat-toolbar *unless="isAuthPage">
   <button mat-icon-button (click)="sideNav = !sideNav">
     <mat-icon fontIcon="menu"></mat-icon>
   </button>
@@ -51,7 +51,7 @@
 
 <mat-drawer-container>
   <mat-drawer
-    *ngIf="!isAuthPage"
+    *unless="isAuthPage"
     class="mat-drawer-side-nav"
     [@slideInOut]="sideNav"
     mode="side"

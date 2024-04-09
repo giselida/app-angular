@@ -1,13 +1,14 @@
-@if (isSignUp) {
-<mat-card [formGroup]="formGroupSingUp">
-  <img
-    mat-card-image
-    ngSrc="../../../../../assets/images/cyber-security.webp"
-    width="250"
-    height="250"
-    priority
-    alt="login-concept-illustration"
-  />
+<mat-card [formGroup]="formGroupSingUp" *unless="!isSignUp">
+  <div class="cyber-security">
+    <img
+      mat-card-image
+      ngSrc="../../../../../assets/images/cyber-security.webp"
+      width="250"
+      height="250"
+      priority
+      alt="login-concept-illustration"
+    />
+  </div>
   <mat-card-header>
     <mat-card-title>Criar Conta</mat-card-title>
   </mat-card-header>
@@ -21,11 +22,6 @@
         formControlName="name"
         required
       />
-      @if (formGroupLogin.controls.name.invalid) {
-      <mat-error>{{
-        getErrorMessage(formGroupSingUp.controls.name)
-      }}</mat-error>
-      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Sobrenome</mat-label>
@@ -36,11 +32,6 @@
         formControlName="lastName"
         required
       />
-      @if (formGroupSingUp.controls.lastName.invalid) {
-      <mat-error>{{
-        getErrorMessage(formGroupSingUp.controls.lastName)
-      }}</mat-error>
-      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Email</mat-label>
@@ -51,11 +42,6 @@
         formControlName="email"
         required
       />
-      @if (formGroupSingUp.controls.email.invalid) {
-      <mat-error>{{
-        getErrorMessage(formGroupSingUp.controls.email)
-      }}</mat-error>
-      }
     </mat-form-field>
     <mat-form-field>
       <mat-label>Senha</mat-label>
@@ -67,11 +53,7 @@
         formControlName="password"
         required
       />
-      @if (formGroupSingUp.controls.password.invalid) {
-      <mat-error>{{
-        getErrorMessage(formGroupSingUp.controls.password)
-      }}</mat-error>
-      }
+
       <button
         mat-icon-button
         matSuffix
@@ -97,25 +79,37 @@
       Criar
     </button>
   </mat-card-actions>
-
-  <span>
-    Você já tem uma conta
-    <a aria-hidden="true" (click)="isSignUp = !isSignUp"> faça o login </a>
-  </span>
 </mat-card>
-} @else {
-<mat-card [formGroup]="formGroupLogin">
+<mat-card *unless="!isSignUp">
   <img
     mat-card-image
-    ngSrc="../../../../../assets/images/cyber-security.webp"
+    ngSrc="../../../../../assets/images/sign-up-rafiki.png"
     width="250"
     height="250"
     priority
     alt="login-concept-illustration"
   />
+  <span>
+    Você já tem uma conta
+    <a (click)="isSignUp = !isSignUp"> faça o login </a>
+  </span>
+</mat-card>
+
+<mat-card [formGroup]="formGroupLogin" *unless="isSignUp">
+  <div class="cyber-security">
+    <img
+      mat-card-image
+      ngSrc="../../../../../assets/images/cyber-security.webp"
+      width="250"
+      height="250"
+      priority
+      alt="login-concept-illustration"
+    />
+  </div>
   <mat-card-header>
     <mat-card-title>Entrar na conta</mat-card-title>
   </mat-card-header>
+
   <mat-card-content>
     <mat-form-field>
       <mat-label>Nome</mat-label>
@@ -127,9 +121,6 @@
         formControlName="name"
         required
       />
-      @if (formGroupLogin.controls.name.invalid) {
-      <mat-error>{{ getErrorMessage(formGroupLogin.controls.name) }}</mat-error>
-      }
     </mat-form-field>
 
     <mat-form-field>
@@ -152,11 +143,6 @@
           password.type === "password" ? "visibility_off" : "visibility"
         }}</mat-icon>
       </button>
-      @if (formGroupLogin.controls.password.invalid) {
-      <mat-error>{{
-        getErrorMessage(formGroupLogin.controls.password)
-      }}</mat-error>
-      }
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
@@ -169,9 +155,18 @@
       Entrar
     </button>
   </mat-card-actions>
+</mat-card>
+<mat-card *unless="isSignUp">
+  <img
+    mat-card-image
+    ngSrc="../../../../../assets/images/login-rafiki.png"
+    width="250"
+    height="250"
+    priority
+    alt="login-concept-illustration"
+  />
   <span>
     Você é novo por aqui ?
-    <a aria-hidden="true" (click)="isSignUp = !isSignUp"> Crie uma conta </a>
+    <a (click)="isSignUp = !isSignUp"> Crie uma conta </a>
   </span>
 </mat-card>
-}
