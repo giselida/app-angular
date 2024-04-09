@@ -23,7 +23,7 @@ export class FormValidationDirective implements OnInit {
     lastName: 'O sobrenome deve conter apenas letras',
     oneSpecialCharacter: 'A senha deve conter pelo menos um caractere especial',
     oneUpperCase: 'A senha deve conter pelo menos uma letra maiúscula',
-    oneNumber: 'A senha deve conter pelo menos uma letra maiúscula',
+    oneNumber: 'A senha deve conter pelo menos um numero',
   };
 
   ngOnInit(): void {

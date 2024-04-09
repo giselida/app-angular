@@ -48,7 +48,7 @@ import { CustomValidators } from '../../../../shared/validators/custom.validator
 export class AuthComponent {
   isSignUp: boolean = false;
   patternEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  patternName = /^[a-zA-ZÀ-ÖØ-öø-ÿ'-]+$/;
+  patternName = /^[a-zA-ZÀ-ÿ\s]+$/;
   oneSpecialCharacterPattern = /([!@#$%^&*()_+\-=[\]{};':"\\|,.<>?])/;
   oneUpperCasePattern = /.*[A-Z].*/;
   oneNumberPattern = /.*\d.*/;
