@@ -51,6 +51,7 @@ export class AuthPage {
   oneSpecialCharacterPattern = /([!@#$%^&*()_+\-=[\]{};':"\\|,.<>?])/;
   oneUpperCasePattern = /.*[A-Z].*/;
   oneNumberPattern = /.*\d.*/;
+
   formGroupLogin = new FormGroup({
     name: new FormControl('Gisélida', [
       Validators.minLength(4),

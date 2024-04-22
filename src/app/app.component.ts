@@ -39,10 +39,10 @@ export class AppComponent {
   condition = true;
   menuItems = [
     {
-      pageName: 'Transações',
-      route: 'transaction',
+      pageName: 'Produtos',
+      route: 'products',
       icon: 'monetization_on',
-      toolTip: 'Transações',
+      toolTip: 'Produtos',
     },
   ];
   get pageTitle() {

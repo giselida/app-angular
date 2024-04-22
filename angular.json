@@ -26,6 +26,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "node_modules/pulso-angular-components/styles/styles.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -81,6 +82,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "node_modules/pulso-angular-components/styles/styles.scss",
               "src/styles.scss"
             ],
             "scripts": []

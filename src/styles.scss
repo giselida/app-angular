@@ -12,6 +12,7 @@
   --primary-700: #512da8;
   --primary-800: #4527a0;
   --primary-900: #311b92;
+  --red: #ff0000;
 }
 
 html,
@@ -25,11 +26,17 @@ body {
   position: relative;
 }
 [class*="-error"] {
-  color: red;
+  color: var(--red);
   font-size: 12px;
   position: absolute;
   top: -20px;
   left: 0;
   right: 0;
   padding: 0 16px;
+}
+router-outlet + * {
+  padding: 10px;
+}
+.mat-drawer-inner-container {
+  overflow: hidden !important;
 }

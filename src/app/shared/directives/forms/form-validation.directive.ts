@@ -48,10 +48,13 @@ export class FormValidationDirective implements OnInit {
   }
   private errorMessage(key: string): string {
     let message = this.customErrors[key] ?? '';
-    const error = this.controlRef.errors?.[key];
-    if (error) {
-      Object.keys(error).forEach((param) => {
-        message = message.replace(new RegExp(`{{ ${param} }}`), error[param]);
+    const valueError = this.controlRef.errors?.[key];
+    if (valueError) {
+      Object.keys(valueError).forEach((param) => {
+        message = message.replace(
+          new RegExp(`{{ ${param} }}`),
+          valueError[param]
+        );
       });
     }
     return message;
@@ -63,11 +66,11 @@ export class FormValidationDirective implements OnInit {
   }
 
   private createElements() {
-    const $matError = this.renderer2.createElement('div') as HTMLElement;
+    const $matErros = this.renderer2.createElement('div') as HTMLElement;
     let $error = this.renderer2.createElement('p') as HTMLElement;
     const key = `${this.controlRef.name}-error`;
     $error.classList.add(key);
-    $matError.classList.add('mat-erros');
-    return { $error, $matError };
+    $matErros.classList.add('mat-erros');
+    return { $error, $matError: $matErros };
   }
 }

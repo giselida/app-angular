@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthPage } from './domain/auth/page/auth/auth.page';
-import { TransactionComponent } from './domain/transaction/transaction.component';
+import { ProductsPage } from './domain/products/page/products/products.page';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const routes: Routes = [
@@ -15,10 +15,12 @@ export const routes: Routes = [
     loadComponent: () => AuthPage,
   },
   {
-    path: 'transaction',
-    loadComponent: () => TransactionComponent,
+    title: 'Produtos',
+    path: 'products',
+    loadComponent: () => ProductsPage,
   },
   {
+    title: 'Página não encontrada',
     path: '**',
     pathMatch: 'full',
     loadComponent: () => NotFoundComponent,

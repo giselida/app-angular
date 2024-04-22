@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
       A página que você procura pode ter sido removida, seu URL alterado ou
       estar temporariamente indisponível.
     </p>
-    <button mat-raised-button color="primary" [routerLink]="['/transaction']">
+    <button mat-raised-button color="primary" [routerLink]="['/products']">
       Pagina inicial
     </button> `,
   styleUrl: './not-found.component.scss',

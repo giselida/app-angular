@@ -64,9 +64,10 @@
         [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="createPassword.type === 'text'"
       >
-        <mat-icon>{{
-          createPassword.type === "password" ? "visibility_off" : "visibility"
-        }}</mat-icon>
+        <mat-icon
+          >{{ createPassword.type === "password" ? "visibility_off" :
+          "visibility" }}</mat-icon
+        >
       </button>
     </mat-form-field>
   </mat-card-content>
@@ -74,8 +75,8 @@
     <button
       mat-raised-button
       color="primary"
-      routerLink="/transaction"
       [disabled]="formGroupSingUp.invalid"
+      [routerLink]="['/products']"
     >
       Criar
     </button>
@@ -150,9 +151,10 @@
         [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="password.type === 'text'"
       >
-        <mat-icon>{{
-          password.type === "password" ? "visibility_off" : "visibility"
-        }}</mat-icon>
+        <mat-icon
+          >{{ password.type === "password" ? "visibility_off" : "visibility"
+          }}</mat-icon
+        >
       </button>
     </mat-form-field>
   </mat-card-content>
@@ -161,7 +163,7 @@
       mat-raised-button
       color="primary"
       [disabled]="formGroupLogin.invalid"
-      routerLink="/transaction"
+      [routerLink]="['/products']"
     >
       Entrar
     </button>
