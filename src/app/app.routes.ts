@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthPage } from './domain/auth/page/auth/auth.page';
-import { ProductsPage } from './domain/products/page/products/products.page';
+import { ProductDetailsComponent } from './domain/product-details/product-details.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const routes: Routes = [
@@ -12,13 +11,20 @@ export const routes: Routes = [
 
   {
     path: 'auth',
-    loadComponent: () => AuthPage,
+    loadChildren: async () =>
+      (await import('./domain/auth/auth-routing.module')).AuthRoutingModule,
   },
   {
     title: 'Produtos',
     path: 'products',
-    loadComponent: () => ProductsPage,
+    loadChildren: async () =>
+      (await import('./domain/products/products.module')).ProductsRoutingModule,
   },
+  {
+    path: 'products-details',
+    loadComponent: () => ProductDetailsComponent,
+  },
+
   {
     title: 'Página não encontrada',
     path: '**',

@@ -20,7 +20,6 @@ import { RouterModule } from '@angular/router';
 import { FormValidationDirective } from '../../../../shared/directives/forms/form-validation.directive';
 import { UnlessDirective } from '../../../../shared/directives/unless/unless.directive';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
-
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -51,7 +50,6 @@ export class AuthPage {
   oneSpecialCharacterPattern = /([!@#$%^&*()_+\-=[\]{};':"\\|,.<>?])/;
   oneUpperCasePattern = /.*[A-Z].*/;
   oneNumberPattern = /.*\d.*/;
-
   formGroupLogin = new FormGroup({
     name: new FormControl('Gisélida', [
       Validators.minLength(4),
