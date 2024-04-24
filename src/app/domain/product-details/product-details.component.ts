@@ -17,6 +17,7 @@ import { ProductService } from '../products/service/product.service';
 export class ProductDetailsComponent implements OnInit {
   @Input() product: ProductRequest;
   @Input() hasView: boolean;
+  @Input() hasButtonBack: boolean = true;
   productsRequest: ProductRequest[];
 
   productRequest: ProductRequest = JSON.parse(

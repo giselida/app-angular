@@ -17,7 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { FormValidationDirective } from '../../../../shared/directives/forms/form-validation.directive';
+import { CustomMatFormFieldValidationDirective } from '../../../../shared/directives/forms/custom-mat-form-field-validation.directive';
 import { UnlessDirective } from '../../../../shared/directives/unless/unless.directive';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
 @Component({
@@ -34,8 +34,8 @@ import { CustomValidators } from '../../../../shared/validators/custom.validator
     MatInputModule,
     MatButtonModule,
     NgOptimizedImage,
-    FormValidationDirective,
     UnlessDirective,
+    CustomMatFormFieldValidationDirective,
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },

@@ -1,3 +1,11 @@
+<button
+  *ngIf="hasButtonBack"
+  mat-raised-button
+  color="primary"
+  [routerLink]="['/products']"
+>
+  Voltar
+</button>
 <mat-card>
   <mat-card-header>
     <mat-card-title>{{ product.title }}</mat-card-title>
