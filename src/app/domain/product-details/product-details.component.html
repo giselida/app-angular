@@ -1,10 +1,20 @@
-<!-- <mat-card>
+<mat-card>
   <mat-card-header>
     <mat-card-title>{{ product.title }}</mat-card-title>
     <mat-card-subtitle>{{ product.category.name }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-sm-image [src]="product.image" [alt]="product.title" />
+  <img mat-card-image [src]="product.image" [alt]="product.title" />
   <mat-card-content>
     <p>{{ product.description }}</p>
   </mat-card-content>
-</mat-card> -->
+  <mat-card-actions *ngIf="hasView">
+    <button mat-raised-button>LIKE</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/products-details/', product.id]"
+    >
+      View product
+    </button>
+  </mat-card-actions>
+</mat-card>

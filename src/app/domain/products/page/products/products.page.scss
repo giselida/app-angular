@@ -4,22 +4,28 @@
     display: flex;
     gap: 10px;
   }
+
   .card-products {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 10px;
-    mat-card {
-      max-width: 400px;
-      img {
-        width: 200px;
+    ::ng-deep {
+      [mat-card-image] {
+        width: 100px;
         height: 200px;
+        object-fit: cover;
         align-self: center;
       }
       p {
+        margin-top: 10px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+      mat-card-actions {
+        gap: 10px;
       }
     }
   }

@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { PulsoModule } from 'pulso-angular-components';
+import { ProductDetailsComponent } from '../../../product-details/product-details.component';
 import { ProductRequest } from '../../interface/product.interface';
 import { ProductService } from '../../service/product.service';
 
@@ -28,6 +29,7 @@ import { ProductService } from '../../service/product.service';
     MatButtonModule,
     PulsoModule,
     MatSelectModule,
+    ProductDetailsComponent,
   ],
   providers: [ShowOnDirtyErrorStateMatcher],
   templateUrl: './products.page.html',
@@ -37,16 +39,17 @@ export class ProductsPage implements OnInit {
   router = inject(Router);
   productsService = inject(ProductService);
   productsRequest: ProductRequest[];
+  productRequest: ProductRequest | undefined;
 
   ngOnInit(): void {
+    this.productsRequest = JSON.parse(localStorage.getItem('products') ?? '[]');
+    this.productRequest = JSON.parse(localStorage.getItem('product') ?? '{}');
+
     this.getProducts();
   }
-  getProduct(id: string) {
-    this.router.navigate(['/products-details'], {
-      queryParams: { id: id },
-    });
-  }
+
   getProducts() {
     this.productsRequest = this.productsService.getProducts();
+    localStorage.setItem('products', JSON.stringify(this.productsRequest));
   }
 }

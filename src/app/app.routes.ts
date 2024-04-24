@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { ProductDetailsComponent } from './domain/product-details/product-details.component';
-import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -21,14 +19,20 @@ export const routes: Routes = [
       (await import('./domain/products/products.module')).ProductsRoutingModule,
   },
   {
-    path: 'products-details',
-    loadComponent: () => ProductDetailsComponent,
+    path: 'products-details/:id',
+    loadComponent: () =>
+      import('./domain/product-details/product-details.component').then(
+        (c) => c.ProductDetailsComponent
+      ),
   },
 
   {
     title: 'Página não encontrada',
     path: '**',
     pathMatch: 'full',
-    loadComponent: () => NotFoundComponent,
+    loadComponent: () =>
+      import('./shared/components/not-found/not-found.component').then(
+        (c) => c.NotFoundComponent
+      ),
   },
 ];
