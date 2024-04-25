@@ -1,23 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
 import { CarouselComponent } from '../../../shared/components/carousel/carousel.component';
+import { SharedModule } from '../../../shared/shared.module';
 import { ProductRequest } from '../../products/interface/product.interface';
 import { ProductService } from '../../products/service/product.service';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatCardModule,
-    MatButtonModule,
-    CarouselComponent,
-  ],
+  imports: [CommonModule, SharedModule, CarouselComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })

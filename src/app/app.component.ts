@@ -1,15 +1,11 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { SLIDE_IN_OUT } from './shared/animations/slid-in-out';
-import { UnlessDirective } from './shared/directives/unless/unless.directive';
+import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
@@ -19,15 +15,9 @@ import { UnlessDirective } from './shared/directives/unless/unless.directive';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterModule,
     MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
     MatSidenavModule,
-    MatTooltipModule,
-    MatBadgeModule,
-    NgOptimizedImage,
-    UnlessDirective,
+    SharedModule,
   ],
   animations: [SLIDE_IN_OUT],
 })

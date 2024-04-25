@@ -1,44 +1,20 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CustomMatFormFieldValidationDirective } from '../../../../shared/directives/forms/custom-mat-form-field-validation.directive';
-import { UnlessDirective } from '../../../../shared/directives/unless/unless.directive';
+import { SharedModule } from '../../../../shared/shared.module';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
 import { UsersRequestSingIn } from '../../interface/users.interface';
 import { AuthService } from '../../service/user.service';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatCardModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    NgOptimizedImage,
-    UnlessDirective,
-    CustomMatFormFieldValidationDirective,
-  ],
+  imports: [CommonModule, SharedModule, CustomMatFormFieldValidationDirective],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
