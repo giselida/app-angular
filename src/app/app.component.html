@@ -18,7 +18,12 @@
     <mat-icon fontIcon="notifications"> </mat-icon>
   </button>
   <div class="user">
-    <button mat-icon-button matTooltip="Conta">
+    <button
+      mat-icon-button
+      matTooltip="Conta"
+      [routerLink]="['account']"
+      [routerLinkActive]="['active']"
+    >
       <mat-icon fontIcon="account_circle"></mat-icon>
     </button>
   </div>
@@ -27,6 +32,7 @@
     aria-label="Github"
     target="_blank"
     rel="noopener"
+    *ngIf="isAccountPage"
   >
     <button mat-icon-button matTooltip="GitHub" class="social-links">
       <img

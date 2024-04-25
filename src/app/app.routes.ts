@@ -21,9 +21,14 @@ export const routes: Routes = [
   {
     path: 'products-details/:id',
     loadComponent: () =>
-      import('./domain/product-details/product-details.component').then(
-        (c) => c.ProductDetailsComponent
-      ),
+      import(
+        './domain/product-details/component/product-details.component'
+      ).then((c) => c.ProductDetailsComponent),
+  },
+  {
+    path: 'account',
+    loadComponent: () =>
+      import('./domain/account/page/account.page').then((c) => c.AccountPage),
   },
   {
     title: 'Página não encontrada',

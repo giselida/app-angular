@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
-import { CarouselComponent } from '../../shared/components/carousel/carousel.component';
-import { ProductRequest } from '../products/interface/product.interface';
-import { ProductService } from '../products/service/product.service';
+import { CarouselComponent } from '../../../shared/components/carousel/carousel.component';
+import { ProductRequest } from '../../products/interface/product.interface';
+import { ProductService } from '../../products/service/product.service';
 
 @Component({
   selector: 'app-product-details',

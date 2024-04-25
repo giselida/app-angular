@@ -51,4 +51,7 @@ export class AppComponent {
   get isAuthPage() {
     return this.router.url === '/auth';
   }
+  get isAccountPage() {
+    return this.router.url === '/account';
+  }
 }

@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { PulsoModule } from 'pulso-angular-components';
-import { ProductDetailsComponent } from '../../../product-details/product-details.component';
+import { ProductDetailsComponent } from '../../../product-details/component/product-details.component';
 import { ProductRequest } from '../../interface/product.interface';
 import { ProductService } from '../../service/product.service';
 
