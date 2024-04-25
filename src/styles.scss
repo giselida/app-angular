@@ -31,3 +31,6 @@ router-outlet + * {
 .mat-drawer-inner-container {
   overflow: hidden !important;
 }
+.mat-drawer-content {
+  overflow: hidden !important;
+}

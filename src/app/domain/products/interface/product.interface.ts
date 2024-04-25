@@ -18,7 +18,7 @@ export interface ProductRequest {
   title: string;
   price: number;
   description: string;
-  image: string | string[];
+  image: string[];
   category: {
     name: string;
     _id: string;

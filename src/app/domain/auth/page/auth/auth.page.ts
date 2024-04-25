@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,10 +16,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CustomMatFormFieldValidationDirective } from '../../../../shared/directives/forms/custom-mat-form-field-validation.directive';
 import { UnlessDirective } from '../../../../shared/directives/unless/unless.directive';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
+import { UsersRequestSingIn } from '../../interface/users.interface';
+import { AuthService } from '../../service/user.service';
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -50,6 +52,9 @@ export class AuthPage {
   oneSpecialCharacterPattern = /([!@#$%^&*()_+\-=[\]{};':"\\|,.<>?])/;
   oneUpperCasePattern = /.*[A-Z].*/;
   oneNumberPattern = /.*\d.*/;
+  authService = inject(AuthService);
+  router = inject(Router);
+
   formGroupLogin = new FormGroup({
     name: new FormControl('Gisélida', [
       Validators.minLength(4),
@@ -94,4 +99,11 @@ export class AuthPage {
       CustomValidators.pattern(this.oneUpperCasePattern, 'oneUpperCase'),
     ]),
   });
+  onLogin() {
+    if (this.formGroupLogin.invalid) return;
+    const formValue = this.formGroupLogin.value as UsersRequestSingIn;
+    if (!formValue) return;
+    this.authService.login(formValue);
+    this.router.navigate(['/products']);
+  }
 }

@@ -1,7 +1,15 @@
 :host {
-  display: block;
-  img {
-    align-self: center;
-    width: 300px;
+  display: flex;
+  flex-direction: column;
+  mat-card {
+    ::ng-deep {
+      .carousel {
+        .container {
+          img {
+            max-width: 400px;
+          }
+        }
+      }
+    }
   }
 }

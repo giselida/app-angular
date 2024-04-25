@@ -25,7 +25,6 @@ export const routes: Routes = [
         (c) => c.ProductDetailsComponent
       ),
   },
-
   {
     title: 'Página não encontrada',
     path: '**',

@@ -4,13 +4,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
+import { CarouselComponent } from '../../shared/components/carousel/carousel.component';
 import { ProductRequest } from '../products/interface/product.interface';
 import { ProductService } from '../products/service/product.service';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatCardModule,
+    MatButtonModule,
+    CarouselComponent,
+  ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
@@ -19,7 +26,6 @@ export class ProductDetailsComponent implements OnInit {
   @Input() hasView: boolean;
   @Input() hasButtonBack: boolean = true;
   productsRequest: ProductRequest[];
-
   productRequest: ProductRequest = JSON.parse(
     localStorage.getItem('product') ?? '{}'
   );
@@ -33,5 +39,6 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(({ id }) => {
         this.product = this.productsService.getOneProduct(id);
       });
+    this.product.image.length;
   }
 }

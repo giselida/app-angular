@@ -12,7 +12,7 @@ import {
 import { NgControl } from '@angular/forms';
 import { MatFormField, MatInput } from '@angular/material/input';
 import { fromEvent } from 'rxjs';
-import { MatErrorComponent } from '../../components/not-found/mat-error/mat-error';
+import { MatErrorComponent } from '../../components/mat-error/mat-error';
 
 const ERROS_VALIDATION: { [key: string]: Function } = {
   required: () => 'Este campo é obrigatório, Insira um valor',
