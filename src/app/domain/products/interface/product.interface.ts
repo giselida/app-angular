@@ -14,7 +14,7 @@ export interface ProductResponse {
   };
 }
 export interface ProductRequest {
-  id: string;
+  id: number;
   title: string;
   price: number;
   description: string;
@@ -23,4 +23,10 @@ export interface ProductRequest {
     name: string;
     _id: string;
   };
+}
+export interface CartProductRequest {
+  id: string;
+  title: string;
+  price: number;
+  image: string[];
 }

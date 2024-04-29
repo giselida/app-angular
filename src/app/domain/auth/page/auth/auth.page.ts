@@ -9,8 +9,11 @@ import { Router } from '@angular/router';
 import { CustomMatFormFieldValidationDirective } from '../../../../shared/directives/forms/custom-mat-form-field-validation.directive';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
-import { UsersRequestSingIn } from '../../interface/users.interface';
-import { AuthService } from '../../service/user.service';
+import {
+  UsersRequestSingIn,
+  UsersResponse,
+} from '../../interface/users.interface';
+import { AuthService } from '../../service/auth.service';
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -30,7 +33,9 @@ export class AuthPage {
   oneNumberPattern = /.*\d.*/;
   authService = inject(AuthService);
   router = inject(Router);
-
+  usersResponse: UsersResponse[];
+  user: UsersResponse | undefined;
+  id = '0';
   formGroupLogin = new FormGroup({
     name: new FormControl('Gisélida', [
       Validators.minLength(4),
@@ -75,11 +80,34 @@ export class AuthPage {
       CustomValidators.pattern(this.oneUpperCasePattern, 'oneUpperCase'),
     ]),
   });
+
   onLogin() {
     if (this.formGroupLogin.invalid) return;
     const formValue = this.formGroupLogin.value as UsersRequestSingIn;
     if (!formValue) return;
-    this.authService.login(formValue);
+    this.user = this.authService.login(formValue);
+
     this.router.navigate(['/products']);
+  }
+  singUp() {
+    const formValue = this.formGroupSingUp.value as UsersResponse;
+    if (this.formGroupSingUp.invalid) return;
+    if (!formValue) return;
+
+    this.user = this.authService.getOneUser(formValue.id);
+    this.usersResponse = this.authService.singUp(formValue);
+
+    console.log(this.user, 'user');
+    if (formValue === this.user) return;
+    localStorage.setItem('user', JSON.stringify(this.user) ?? '{}');
+    this.router.navigate(['/products']);
+    console.log(formValue);
+  }
+  getUsers() {
+    this.authService.getUsers().subscribe((value) => {
+      console.log(value);
+      this.usersResponse = value;
+    });
+    localStorage.setItem('users', JSON.stringify(this.usersResponse));
   }
 }

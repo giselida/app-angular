@@ -32,6 +32,5 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(({ id }) => {
         this.product = this.productsService.getOneProduct(id);
       });
-    this.product.image.length;
   }
 }

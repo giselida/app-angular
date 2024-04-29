@@ -76,7 +76,7 @@
       mat-raised-button
       color="primary"
       [disabled]="formGroupSingUp.invalid"
-      [routerLink]="['/products']"
+      (click)="singUp()"
     >
       Criar
     </button>

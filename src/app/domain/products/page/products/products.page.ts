@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { PulsoModule } from 'pulso-angular-components';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ProductDetailsComponent } from '../../../product-details/component/product-details.component';
-import { ProductRequest } from '../../interface/product.interface';
+import {
+  CartProductRequest,
+  ProductRequest,
+} from '../../interface/product.interface';
 import { ProductService } from '../../service/product.service';
 @Component({
   selector: 'app-products',
@@ -17,15 +20,25 @@ export class ProductsPage implements OnInit {
   router = inject(Router);
   productsService = inject(ProductService);
   productsRequest: ProductRequest[];
-  productRequest: ProductRequest | undefined;
 
   ngOnInit(): void {
     this.productsRequest = JSON.parse(localStorage.getItem('products') ?? '[]');
-    this.productRequest = JSON.parse(localStorage.getItem('product') ?? '{}');
 
     this.getProducts();
   }
+  cartProductList: CartProductRequest[];
 
+  addProductToCart(product: CartProductRequest) {
+    const productExistInCart = this.cartProductList.find(
+      ({ title }) => title === product.title
+    );
+    console.log(productExistInCart);
+  }
+  removeProduct(product: CartProductRequest) {
+    this.cartProductList = this.cartProductList.filter(
+      ({ title }) => title !== product.title
+    );
+  }
   getProducts() {
     this.productsRequest = this.productsService.getProducts();
     localStorage.setItem('products', JSON.stringify(this.productsRequest));

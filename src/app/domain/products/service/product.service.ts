@@ -6,11 +6,16 @@ import { ProductRequest } from '../interface/product.interface';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor() {}
+  id: number = 0;
+
+  createProduct(product: ProductRequest) {
+    const products = LIST_OF_PRODUCTS.push({ ...product, id: ++this.id });
+    return products;
+  }
   getProducts(): ProductRequest[] {
     return LIST_OF_PRODUCTS;
   }
-  getOneProduct(id: string) {
+  getOneProduct(id: number) {
     const product = LIST_OF_PRODUCTS.find((value) => value.id == id);
     return product!;
   }
