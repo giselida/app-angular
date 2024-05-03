@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { find, from, Observable, of } from 'rxjs';
 import {
   UsersRequestSingIn,
   UsersResponse,
@@ -13,13 +13,15 @@ export class AuthService {
   id: number = 0;
 
   getUsers(): Observable<UsersResponse[]> {
-    return of(LIST_OF_USERS);
+    const list = of(LIST_OF_USERS);
+
+    return list;
   }
   getOneUser(id: number) {
-    const user = LIST_OF_USERS.find((value) => value.id === id);
+    const list = from(LIST_OF_USERS).pipe(find((value) => value.id === id));
 
-    if (!user) return;
-    return user;
+    if (!list) return;
+    return list;
   }
 
   login(user: UsersRequestSingIn) {

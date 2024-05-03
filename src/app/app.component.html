@@ -46,15 +46,14 @@
     </button>
   </a>
   <button
-    mat-icon-button
-    matTooltip="Carrinho"
-    *ngIf="!isAccountPage"
     [routerLink]="['cart']"
     [routerLinkActive]="['active']"
+    mat-icon-button
+    matTooltip="Carrinho"
   >
     <mat-icon
       fontIcon="shopping_cart"
-      matBadge="15"
+      matBadge="{{ numberProductsOfCart | async }}"
       matBadgeColor="warn"
     ></mat-icon>
   </button>

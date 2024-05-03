@@ -5,6 +5,7 @@ export interface UsersResponse {
   email: string;
   password: string;
 }
+
 export interface UsersRequestSingUp {
   name: string;
   userName: string;

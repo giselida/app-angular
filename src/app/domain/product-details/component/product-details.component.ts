@@ -6,6 +6,7 @@ import { CarouselComponent } from '../../../shared/components/carousel/carousel.
 import { SharedModule } from '../../../shared/shared.module';
 import { ProductRequest } from '../../products/interface/product.interface';
 import { ProductService } from '../../products/service/product.service';
+import { ProductCart } from './../../products/interface/product.interface';
 
 @Component({
   selector: 'app-product-details',
@@ -17,12 +18,18 @@ import { ProductService } from '../../products/service/product.service';
 export class ProductDetailsComponent implements OnInit {
   @Input() product: ProductRequest;
   @Input() hasView: boolean;
-  @Input() hasButtonBack: boolean = true;
   productsRequest: ProductRequest[];
+
   productRequest: ProductRequest = JSON.parse(
     localStorage.getItem('product') ?? '{}'
   );
   productsService = inject(ProductService);
+  @Input() productCart: ProductCart;
+  @Input() hasButtonBack: boolean = true;
+
+  productCartRequest: ProductCart[] = JSON.parse(
+    localStorage.getItem('ProductsCart') ?? '[]'
+  );
 
   activatedRoute = inject(ActivatedRoute);
 
@@ -32,5 +39,22 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(({ id }) => {
         this.product = this.productsService.getOneProduct(id);
       });
+    this.getProducts();
+  }
+
+  getProducts() {
+    this.productsRequest = this.productsService.getProducts();
+    localStorage.setItem('products', JSON.stringify(this.productsRequest));
+  }
+  addProductCart(id: number) {
+    this.productsService.getOneProductCart(id);
+    this.productCartRequest = this.productsService.createProductCart(
+      this.product
+    );
+    this.productsService.numberOfCart();
+    localStorage.setItem(
+      'ProductsCart',
+      JSON.stringify(this.productCartRequest)
+    );
   }
 }

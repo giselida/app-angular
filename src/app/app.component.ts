@@ -4,6 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
+import { ProductService } from './domain/products/service/product.service';
 import { SLIDE_IN_OUT } from './shared/animations/slid-in-out';
 import { SharedModule } from './shared/shared.module';
 
@@ -24,6 +25,8 @@ import { SharedModule } from './shared/shared.module';
 export class AppComponent {
   pageService = inject(Title);
   router = inject(Router);
+  productCartService = inject(ProductService);
+  numberProductsOfCart = this.productCartService.numberOfCart();
   sideNav = false;
   isMode: boolean = JSON.parse(localStorage.getItem('dark-mode') ?? 'false');
   condition = true;

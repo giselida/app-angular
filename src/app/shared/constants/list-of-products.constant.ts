@@ -47,4 +47,17 @@ export const LIST_OF_PRODUCTS: ProductRequest[] = [
       _id: 'string',
     },
   },
+  {
+    id: 3,
+    title: 'Short Jeans',
+    price: 50.0,
+    description: 'Short Jeans Feminino Curto Preto e Escuro Barra Desfiada ',
+    image: [
+      'https://a-static.mlcdn.com.br/1500x1500/short-jeans-feminino-curto-preto-e-escuro-barra-desfiada-is-store/isstoreshort/6e48abeec25c11eda09b4201ac18502f/a583513ca0c54cab5385e3f5c9540cd2.jpeg',
+    ],
+    category: {
+      name: 'Roupas',
+      _id: 'string',
+    },
+  },
 ];

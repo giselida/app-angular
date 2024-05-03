@@ -31,6 +31,13 @@ export const routes: Routes = [
       import('./domain/account/page/account.page').then((c) => c.AccountPage),
   },
   {
+    title: 'Carrinho',
+    path: 'cart',
+    loadComponent: () =>
+      import('./domain/cart/page/product-cart.page').then((c) => c.CartPage),
+  },
+
+  {
     title: 'Página não encontrada',
     path: '**',
     pathMatch: 'full',

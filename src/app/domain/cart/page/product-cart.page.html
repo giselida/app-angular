@@ -1,0 +1,18 @@
+<!-- <div class="card-products">
+  
+  <app-product-details
+    [productCart]="product"
+    [hasButtonBack]="false"
+  ></app-product-details>
+</div> -->
+@for (product of productsCartRequest; track product.id ) {
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ product.title }}</mat-card-title>
+  </mat-card-header>
+  <carousel [images]="product.image"></carousel>
+  <mat-card-content>
+    <p>{{product.price | currency:'BRL':'symbol'}}</p>
+  </mat-card-content>
+</mat-card>
+}

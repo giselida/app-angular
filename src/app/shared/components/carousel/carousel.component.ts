@@ -16,10 +16,6 @@ import { CAROUSEL } from '../../animations/carousel';
 export class CarouselComponent {
   @Input() images: string[] = [
     'https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXwxMTAzMDg4fHxlbnwwfHx8fHw%3D',
-    'https://images.unsplash.com/photo-1566864222010-d45675442c31?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MnwxMTAzMDg4fHxlbnwwfHx8fHw%3D',
-    'https://images.unsplash.com/photo-1551410224-699683e15636?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3wxMTAzMDg4fHxlbnwwfHx8fHw%3D',
-    'https://images.unsplash.com/photo-1565622871630-8e453c4b6ed9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8N3wxMTAzMDg4fHxlbnwwfHx8fHw%3D',
-    'https://images.unsplash.com/photo-1537800534001-f3e01aa1c34c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NXwxMTAzMDg4fHxlbnwwfHx8fHw%3D',
   ];
   @Input() hasOperators: boolean = true;
   router = inject(Router);

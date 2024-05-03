@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CustomMatFormFieldValidationDirective } from '../../../../shared/directives/forms/custom-mat-form-field-validation.directive';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
@@ -24,7 +25,7 @@ import { AuthService } from '../../service/auth.service';
   templateUrl: './auth.page.html',
   styleUrl: './auth.page.scss',
 })
-export class AuthPage {
+export class AuthPage implements OnInit {
   isSignUp: boolean = false;
   patternEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   patternName = /^[a-zA-ZÀ-ÿ\s]+$/;
@@ -34,6 +35,7 @@ export class AuthPage {
   authService = inject(AuthService);
   router = inject(Router);
   usersResponse: UsersResponse[];
+  user$: Observable<UsersResponse[]>;
   user: UsersResponse | undefined;
   id = '0';
   formGroupLogin = new FormGroup({
@@ -80,7 +82,9 @@ export class AuthPage {
       CustomValidators.pattern(this.oneUpperCasePattern, 'oneUpperCase'),
     ]),
   });
-
+  ngOnInit(): void {
+    this.getUsers();
+  }
   onLogin() {
     if (this.formGroupLogin.invalid) return;
     const formValue = this.formGroupLogin.value as UsersRequestSingIn;
@@ -94,18 +98,17 @@ export class AuthPage {
     if (this.formGroupSingUp.invalid) return;
     if (!formValue) return;
 
-    this.user = this.authService.getOneUser(formValue.id);
+    this.authService.getOneUser(formValue.id)?.subscribe((value) => {
+      this.user = value;
+    });
     this.usersResponse = this.authService.singUp(formValue);
 
-    console.log(this.user, 'user');
     if (formValue === this.user) return;
     localStorage.setItem('user', JSON.stringify(this.user) ?? '{}');
     this.router.navigate(['/products']);
-    console.log(formValue);
   }
   getUsers() {
     this.authService.getUsers().subscribe((value) => {
-      console.log(value);
       this.usersResponse = value;
     });
     localStorage.setItem('users', JSON.stringify(this.usersResponse));

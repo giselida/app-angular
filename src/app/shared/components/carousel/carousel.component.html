@@ -1,5 +1,5 @@
 <div class="carousel">
-  @if (hasOperators) {
+  @if (lengthGreaterThanOne) {
   <button
     mat-icon-button
     class="previous"
@@ -16,7 +16,7 @@
   >
     <img [src]="image" *ngIf="i === currentSlide" alt="" @carouselAnimation />
   </div>
-  @if (hasOperators) {
+  @if (lengthGreaterThanOne) {
   <button
     mat-icon-button
     class="next"
