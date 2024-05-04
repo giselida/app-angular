@@ -22,7 +22,7 @@ export const routes: Routes = [
     loadComponent: async () =>
       (
         await import(
-          './domain/products/components/cart-product/cart-product.component'
+          './domain/products/components/card-product/card-product.component'
         )
       ).CardProductComponent,
   },

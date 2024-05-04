@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { PulsoModule } from 'pulso-angular-components';
 import { SharedModule } from '../../../../shared/shared.module';
-import { CardProductComponent } from '../../components/cart-product/cart-product.component';
+import { CardProductComponent } from '../../components/card-product/card-product.component';
 import { ProductRequest } from '../../interface/product.interface';
 import { ProductService } from '../../service/product/product.service';
 @Component({

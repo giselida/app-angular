@@ -13,8 +13,8 @@ import { ProductService } from '../../service/product/product.service';
   selector: 'card-product',
   standalone: true,
   imports: [CommonModule, SharedModule, CarouselComponent],
-  templateUrl: './cart-product.component.html',
-  styleUrl: './cart-product.component.scss',
+  templateUrl: './card-product.component.html',
+  styleUrl: './card-product.component.scss',
 })
 export class CardProductComponent implements OnInit {
   @Input() product: ProductRequest | ProductCart;
