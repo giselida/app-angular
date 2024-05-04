@@ -17,6 +17,9 @@ export class CarouselComponent {
   @Input() images: string[] = [
     'https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXwxMTAzMDg4fHxlbnwwfHx8fHw%3D',
   ];
+  @Input() width = '100%';
+  @Input() height = '100%';
+  @Input() objectFit: string = 'contain';
   @Input() hasOperators: boolean = true;
   router = inject(Router);
   currentSlide = 0;

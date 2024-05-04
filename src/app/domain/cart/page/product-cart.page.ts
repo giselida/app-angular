@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { CarouselComponent } from '../../../shared/components/carousel/carousel.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { ProductDetailsComponent } from '../../product-details/component/product-details.component';
-import { ProductService } from '../../products/service/product.service';
-import { ProductCart } from './../../products/interface/product.interface';
+import { CardProductComponent } from '../../products/components/cart-product/cart-product.component';
+import { CartProductService } from '../../products/service/cart-product/cart-product.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -13,25 +12,12 @@ import { ProductCart } from './../../products/interface/product.interface';
     CommonModule,
     SharedModule,
     MatDividerModule,
-    ProductDetailsComponent,
+    CardProductComponent,
     CarouselComponent,
   ],
   templateUrl: './product-cart.page.html',
   styleUrl: './product-cart.page.scss',
 })
-export class CartPage implements OnInit {
-  productsCartRequest: ProductCart[] = JSON.parse(
-    localStorage.getItem('ProductsCart') ?? '[]'
-  );
-  productsService = inject(ProductService);
-  ngOnInit(): void {
-    this.getProducts();
-  }
-
-  getProducts() {
-    localStorage.setItem(
-      'ProductsCart',
-      JSON.stringify(this.productsCartRequest)
-    );
-  }
+export class CartPage {
+  cartProductService = inject(CartProductService);
 }

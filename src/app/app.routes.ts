@@ -6,7 +6,6 @@ export const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'auth',
   },
-
   {
     path: 'auth',
     loadChildren: async () =>
@@ -20,10 +19,12 @@ export const routes: Routes = [
   },
   {
     path: 'products-details/:id',
-    loadComponent: () =>
-      import(
-        './domain/product-details/component/product-details.component'
-      ).then((c) => c.ProductDetailsComponent),
+    loadComponent: async () =>
+      (
+        await import(
+          './domain/products/components/cart-product/cart-product.component'
+        )
+      ).CardProductComponent,
   },
   {
     path: 'account',

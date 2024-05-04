@@ -1,18 +1,10 @@
-<!-- <div class="card-products">
-  
-  <app-product-details
-    [productCart]="product"
+<div class="card-products">
+  @for (product of cartProductService.productCartNumber$ | async; track
+  product.id) {
+  <card-product
+    [product]="product"
+    [hasView]="true"
     [hasButtonBack]="false"
-  ></app-product-details>
-</div> -->
-@for (product of productsCartRequest; track product.id ) {
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ product.title }}</mat-card-title>
-  </mat-card-header>
-  <carousel [images]="product.image"></carousel>
-  <mat-card-content>
-    <p>{{product.price | currency:'BRL':'symbol'}}</p>
-  </mat-card-content>
-</mat-card>
-}
+  ></card-product>
+  }
+</div>

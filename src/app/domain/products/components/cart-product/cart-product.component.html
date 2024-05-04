@@ -1,0 +1,41 @@
+<ng-container *ngIf="product">
+  <button
+    *ngIf="hasButtonBack"
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/products']"
+  >
+    Voltar
+  </button>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ product.title }}</mat-card-title>
+      <mat-card-subtitle *ngIf="isProductRequest(product)">{{
+        product.category.name
+      }}</mat-card-subtitle>
+    </mat-card-header>
+    <carousel
+      [images]="product.image"
+      [width]="carouselConfig.width"
+      [height]="carouselConfig.height"
+      [objectFit]="carouselConfig.objectFIt"
+    ></carousel>
+    <mat-card-content>
+      <p *ngIf="isProductRequest(product)">{{ product.description }}</p>
+      <p>{{ product.price | currency : "BRL" : "symbol" }}</p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="hasView">
+      <button mat-raised-button (click)="addProductCart(product.id)">
+        Adicionar
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="['/products-details/', product.id]"
+      >
+        Ver produto
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

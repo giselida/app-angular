@@ -1,9 +1,11 @@
 <div class="card-products">
   @for (product of productsRequest; track product.id) {
-  <app-product-details
+  <card-product
+    [carouselConfig]="carouselConfig"
     [product]="product"
     [hasView]="true"
     [hasButtonBack]="false"
-  ></app-product-details>
+  >
+  </card-product>
   }
 </div>

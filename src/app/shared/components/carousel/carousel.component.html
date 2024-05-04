@@ -14,7 +14,15 @@
     *ngFor="let image of images; let i = index"
     [class.active]="i === currentSlide"
   >
-    <img [src]="image" *ngIf="i === currentSlide" alt="" @carouselAnimation />
+    <img
+      [src]="image"
+      [style.width]="width"
+      [style.height]="height"
+      [style.objectFit]="objectFit"
+      *ngIf="i === currentSlide"
+      alt=""
+      @carouselAnimation
+    />
   </div>
   @if (lengthGreaterThanOne) {
   <button
