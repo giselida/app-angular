@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap } from 'rxjs';
 import { cartKey } from '../../../../constants/cart-key';
 import { CarouselComponent } from '../../../../shared/components/carousel/carousel.component';
@@ -17,9 +17,13 @@ import { ProductService } from '../../service/product/product.service';
   styleUrl: './card-product.component.scss',
 })
 export class CardProductComponent implements OnInit {
+  router = inject(Router);
   @Input() product: ProductRequest | ProductCart;
-  @Input() hasView: boolean;
+
+  @Input() hasButtonView: boolean;
+  @Input() hasButtonAdd: boolean = true;
   @Input() hasButtonBack: boolean = true;
+  @Input() hasOperators: boolean = true;
 
   @Input() carouselConfig: {
     width: string;
@@ -52,7 +56,7 @@ export class CardProductComponent implements OnInit {
       });
   }
 
-  addProductCart(id: number) {
+  addProductCart() {
     this.cartProductService
       .create(this.product as ProductCart)
       .subscribe((response) => {
@@ -64,6 +68,7 @@ export class CardProductComponent implements OnInit {
         localStorage.setItem(cartKey, JSON.stringify(this.cardProducts));
       });
   }
+
   isProductRequest(
     product: ProductRequest | ProductCart
   ): product is ProductRequest {

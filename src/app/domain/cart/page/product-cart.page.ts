@@ -19,5 +19,11 @@ import { CartProductService } from '../../products/service/cart-product/cart-pro
   styleUrl: './product-cart.page.scss',
 })
 export class CartPage {
+  carouselConfig = {
+    width: '100%',
+    height: '100px',
+    objectFIt: 'contain',
+  };
+
   cartProductService = inject(CartProductService);
 }

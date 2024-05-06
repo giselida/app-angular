@@ -36,8 +36,7 @@ export class BaseServiceApi<T> implements CrudApiService<T> {
   }
 
   create(entity: Partial<Entity<T>>): Observable<ApiResponse<T>> {
-    const newEntity = { ...entity, id: ++this.id } as Entity<T>;
-
+    const newEntity = { ...entity, _id: ++this.id } as Entity<T>;
     this.items.push(newEntity);
 
     return of(
@@ -57,7 +56,6 @@ export class BaseServiceApi<T> implements CrudApiService<T> {
   remove(id: number): Observable<ApiResponse<Entity<T>>> {
     const item = this.items.find((item) => item.id === id);
     this.items.filter((item) => item.id != id);
-
     return of(fakeApiResponse(200, 'Resposta enviada com sucesso!', item!));
   }
 }

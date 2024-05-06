@@ -20,6 +20,8 @@ export class ProductsPage implements OnInit {
     height: '200px',
     objectFIt: 'contain',
   };
+  hasOperators: boolean;
+
   ngOnInit(): void {
     this.getProducts();
   }

@@ -33,9 +33,7 @@ export class CarouselComponent {
     const next = this.currentSlide + 1;
     this.currentSlide = next === this.images.length ? 0 : next;
   }
-  get isProductPage() {
-    return this.router.url === '/products';
-  }
+
   get lengthGreaterThanOne() {
     if (this.images.length <= 1) {
       this.hasOperators = false;

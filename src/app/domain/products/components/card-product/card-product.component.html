@@ -20,16 +20,19 @@
       [width]="carouselConfig.width"
       [height]="carouselConfig.height"
       [objectFit]="carouselConfig.objectFIt"
+      [hasOperators]="hasOperators"
     ></carousel>
     <mat-card-content>
       <p *ngIf="isProductRequest(product)">{{ product.description }}</p>
       <p>{{ product.price | currency : "BRL" : "symbol" }}</p>
     </mat-card-content>
-    <mat-card-actions *ngIf="hasView">
-      <button mat-raised-button (click)="addProductCart(product.id)">
+    <mat-card-actions>
+      <button *ngIf="hasButtonAdd" mat-raised-button (click)="addProductCart()">
         Adicionar
       </button>
+
       <button
+        *ngIf="hasButtonView"
         mat-raised-button
         color="primary"
         [routerLink]="['/products-details/', product.id]"
