@@ -15,11 +15,13 @@ import { ProductService } from '../../service/product/product.service';
 export class ProductsPage implements OnInit {
   productsService = inject(ProductService);
   productsRequest: ProductRequest[];
+
   carouselConfig = {
     width: '100%',
     height: '200px',
     objectFIt: 'contain',
   };
+
   hasOperators: boolean;
 
   ngOnInit(): void {

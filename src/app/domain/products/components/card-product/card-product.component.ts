@@ -5,9 +5,10 @@ import { filter, switchMap } from 'rxjs';
 import { cartKey } from '../../../../constants/cart-key';
 import { CarouselComponent } from '../../../../shared/components/carousel/carousel.component';
 import { SharedModule } from '../../../../shared/shared.module';
-import { ProductCart, ProductRequest } from '../../interface/product.interface';
+import { ProductRequest } from '../../interface/product.interface';
 import { CartProductService } from '../../service/cart-product/cart-product.service';
 import { ProductService } from '../../service/product/product.service';
+import { ProductCart } from './../../interface/product.interface';
 
 @Component({
   selector: 'card-product',
@@ -19,11 +20,13 @@ import { ProductService } from '../../service/product/product.service';
 export class CardProductComponent implements OnInit {
   router = inject(Router);
   @Input() product: ProductRequest | ProductCart;
-
+  visibility: boolean = false;
   @Input() hasButtonView: boolean;
   @Input() hasButtonAdd: boolean = true;
   @Input() hasButtonBack: boolean = true;
   @Input() hasOperators: boolean = true;
+  @Input() display: string = 'block';
+  @Input() content: string = 'normal';
 
   @Input() carouselConfig: {
     width: string;
@@ -61,14 +64,13 @@ export class CardProductComponent implements OnInit {
       .create(this.product as ProductCart)
       .subscribe((response) => {
         this.cardProducts = [
-          ...this.cartProductService.productCartNumber$.value,
           response.data,
+          ...this.cartProductService.productCartNumber$.value,
         ];
         this.cartProductService.productCartNumber$.next(this.cardProducts);
         localStorage.setItem(cartKey, JSON.stringify(this.cardProducts));
       });
   }
-
   isProductRequest(
     product: ProductRequest | ProductCart
   ): product is ProductRequest {

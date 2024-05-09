@@ -35,3 +35,7 @@ router-outlet + * {
 .mat-drawer-content {
   overflow: hidden !important;
 }
+.price {
+  font-weight: 700;
+  color: green;
+}

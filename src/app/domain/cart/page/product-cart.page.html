@@ -1,13 +1,30 @@
 <div class="card-products">
-  @for (product of cartProductService.productCartNumber$ | async; track
-  product.id) {
+  @if (this.cartProductService.items.length < 1) {
+  <mat-card>
+    <mat-card-content>
+      <span> O carrinho está vazio </span>
+    </mat-card-content>
+  </mat-card>
+  } @else { @for (product of cartProductService.productCartNumber$ | async;
+  track product.id) {
   <card-product
+    [routerLink]="['/products-details/', product.id]"
     [product]="product"
     [hasButtonAdd]="false"
-    [hasButtonView]="true"
     [hasButtonBack]="false"
-    [hasOperators]="false"
     [carouselConfig]="carouselConfig"
+    [display]="cardContent.display"
+    [content]="cardContent.content"
+    [hasOperators]="hasOperators"
   ></card-product>
+  }
+  <mat-card>
+    <mat-card-content>
+      <span>
+        Total da compra
+        <p class="price">{{price | currency : "BRL" : "symbol"}}</p>
+      </span>
+    </mat-card-content>
+  </mat-card>
   }
 </div>

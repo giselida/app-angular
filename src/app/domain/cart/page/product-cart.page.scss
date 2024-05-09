@@ -1,7 +1,15 @@
 :host {
+  display: block;
   .card-products {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    card-product {
+      cursor: pointer;
+    }
+    span {
+      display: flex;
+      gap: 5px;
+    }
   }
 }

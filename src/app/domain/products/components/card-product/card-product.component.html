@@ -5,39 +5,46 @@
     color="primary"
     [routerLink]="['/products']"
   >
+    <mat-icon fontIcon="exit_to_app"></mat-icon>
     Voltar
   </button>
 
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ product.title }}</mat-card-title>
+      @if (!cartProductService.isCart) {
       <mat-card-subtitle *ngIf="isProductRequest(product)">{{
         product.category.name
       }}</mat-card-subtitle>
+      }
     </mat-card-header>
-    <carousel
-      [images]="product.image"
-      [width]="carouselConfig.width"
-      [height]="carouselConfig.height"
-      [objectFit]="carouselConfig.objectFIt"
-      [hasOperators]="hasOperators"
-    ></carousel>
-    <mat-card-content>
+    <mat-card-content
+      [style.display]="display"
+      [style.justify-content]="content"
+    >
+      <carousel
+        [images]="product.image"
+        [width]="carouselConfig.width"
+        [height]="carouselConfig.height"
+        [objectFit]="carouselConfig.objectFIt"
+        [hasOperators]="hasOperators"
+      ></carousel>
+      @if (!cartProductService.isCart) {
       <p *ngIf="isProductRequest(product)">{{ product.description }}</p>
-      <p>{{ product.price | currency : "BRL" : "symbol" }}</p>
+      }
+      <p class="price">{{ product.price | currency : "BRL" : "symbol" }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button *ngIf="hasButtonAdd" mat-raised-button (click)="addProductCart()">
+        <mat-icon fontIcon="add_shopping_cart"></mat-icon>
         Adicionar
       </button>
-
       <button
         *ngIf="hasButtonView"
-        mat-raised-button
-        color="primary"
+        mat-icon-button
         [routerLink]="['/products-details/', product.id]"
       >
-        Ver produto
+        <mat-icon>{{ !visibility ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>

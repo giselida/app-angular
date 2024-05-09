@@ -28,23 +28,22 @@ export const routes: Routes = [
   },
   {
     path: 'account',
-    loadComponent: () =>
-      import('./domain/account/page/account.page').then((c) => c.AccountPage),
+    loadComponent: async () =>
+      (await import('./domain/account/page/account.page')).AccountPage,
   },
   {
     title: 'Carrinho',
     path: 'cart',
-    loadComponent: () =>
-      import('./domain/cart/page/product-cart.page').then((c) => c.CartPage),
+    loadComponent: async () =>
+      (await import('./domain/cart/page/product-cart.page')).CartPage,
   },
 
   {
     title: 'Página não encontrada',
     path: '**',
     pathMatch: 'full',
-    loadComponent: () =>
-      import('./shared/components/not-found/not-found.component').then(
-        (c) => c.NotFoundComponent
-      ),
+    loadComponent: async () =>
+      (await import('./shared/components/not-found/not-found.component'))
+        .NotFoundComponent,
   },
 ];
