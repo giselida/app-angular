@@ -1,4 +1,19 @@
 :host {
   display: flex;
   flex-direction: column;
+  .container-options {
+    display: flex;
+    flex-direction: column;
+    .options {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #000;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    p {
+      align-self: flex-end;
+    }
+  }
 }

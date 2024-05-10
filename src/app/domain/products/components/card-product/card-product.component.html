@@ -3,7 +3,7 @@
     *ngIf="hasButtonBack"
     mat-raised-button
     color="primary"
-    [routerLink]="['/products']"
+    (click)="backRoute()"
   >
     <mat-icon fontIcon="exit_to_app"></mat-icon>
     Voltar
@@ -12,10 +12,8 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ product.title }}</mat-card-title>
-      @if (!cartProductService.isCart) {
-      <mat-card-subtitle *ngIf="isProductRequest(product)">{{
-        product.category.name
-      }}</mat-card-subtitle>
+      @if (isProductRequest(product)) {
+      <mat-card-subtitle>{{ product.category.name }}</mat-card-subtitle>
       }
     </mat-card-header>
     <mat-card-content
@@ -29,10 +27,21 @@
         [objectFit]="carouselConfig.objectFIt"
         [hasOperators]="hasOperators"
       ></carousel>
-      @if (!cartProductService.isCart) {
-      <p *ngIf="isProductRequest(product)">{{ product.description }}</p>
+      @if (isProductRequest(product)) {
+      <p>{{ product.description }}</p>
       }
-      <p class="price">{{ product.price | currency : "BRL" : "symbol" }}</p>
+      <div class="container-options">
+        <div class="options" *ngIf="hasOptions">
+          <button mat-icon-button color="primary">-</button>
+          <p *ngIf="!isProductRequest(product)" class="price">
+            {{ product.quantity }}
+          </p>
+          <button mat-icon-button color="primary" (click)="addProductCart()">
+            +
+          </button>
+        </div>
+        <p class="price">{{ product.price | currency : "BRL" : "symbol" }}</p>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button *ngIf="hasButtonAdd" mat-raised-button (click)="addProductCart()">

@@ -5,17 +5,17 @@
       <span> O carrinho está vazio </span>
     </mat-card-content>
   </mat-card>
-  } @else { @for (product of cartProductService.productCartNumber$ | async;
-  track product.id) {
+  } @else { @for (product of cartProductService.sumCartNumber$ | async; track
+  product.id) {
   <card-product
-    [routerLink]="['/products-details/', product.id]"
     [product]="product"
     [hasButtonAdd]="false"
     [hasButtonBack]="false"
     [carouselConfig]="carouselConfig"
     [display]="cardContent.display"
     [content]="cardContent.content"
-    [hasOperators]="hasOperators"
+    [hasOperators]="false"
+    [hasOptions]="true"
   ></card-product>
   }
   <mat-card>

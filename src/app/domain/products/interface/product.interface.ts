@@ -10,4 +10,7 @@ export interface ProductRequest {
   };
 }
 
-export type ProductCart = Omit<ProductRequest, 'description' | 'category'>;
+export interface ProductCart
+  extends Omit<ProductRequest, 'description' | 'category'> {
+  quantity: number;
+}

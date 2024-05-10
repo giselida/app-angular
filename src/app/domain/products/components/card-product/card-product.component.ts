@@ -21,10 +21,12 @@ export class CardProductComponent implements OnInit {
   router = inject(Router);
   @Input() product: ProductRequest | ProductCart;
   visibility: boolean = false;
+
   @Input() hasButtonView: boolean;
   @Input() hasButtonAdd: boolean = true;
   @Input() hasButtonBack: boolean = true;
   @Input() hasOperators: boolean = true;
+  @Input() hasOptions: boolean = false;
   @Input() display: string = 'block';
   @Input() content: string = 'normal';
 
@@ -71,9 +73,13 @@ export class CardProductComponent implements OnInit {
         localStorage.setItem(cartKey, JSON.stringify(this.cardProducts));
       });
   }
+
+  backRoute() {
+    history.back();
+  }
   isProductRequest(
     product: ProductRequest | ProductCart
   ): product is ProductRequest {
-    return !!(product as ProductRequest)?.description;
+    return !(product as ProductRequest)?.description;
   }
 }

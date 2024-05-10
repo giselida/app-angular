@@ -13,6 +13,9 @@ import { ProductCart } from '../../interface/product.interface';
 export class CartProductService extends BaseServiceApi<ProductCart> {
   override items: Entity<ProductCart>[] = LIST_OF_PRODUCT_OF_CART;
   productCartNumber$: BehaviorSubject<ProductCart[]>;
+  sumCartNumber$: BehaviorSubject<ProductCart[]> = new BehaviorSubject(
+    [] as ProductCart[]
+  );
   router = inject(Router);
 
   constructor() {
@@ -32,9 +35,26 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
       .pipe(map((value) => value.length));
   }
   sumPriceOfCart() {
-    const sum = this.items.reduce(function (acc, obj) {
+    const sum = this.items.reduce((acc, obj) => {
       return acc + obj.price;
     }, 0);
     return sum;
+  }
+
+  sum() {
+    const productsMap = [...new Set(this.items.map((product) => product.id))];
+    const sumProducts = productsMap.map((productId) => {
+      const findProducts = this.items.filter(
+        (product) => product.id === productId
+      );
+      const sum = findProducts.reduce((acc, item) => acc + item.price, 0);
+      return {
+        ...findProducts[0],
+        quantity: findProducts.length,
+        price: sum,
+      };
+    });
+
+    return sumProducts;
   }
 }

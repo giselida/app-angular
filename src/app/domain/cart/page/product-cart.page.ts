@@ -24,16 +24,17 @@ export class CartPage implements OnInit {
     height: '100px',
     objectFIt: 'contain',
   };
+
   cardContent = {
     display: 'flex',
     content: 'space-between',
   };
-  hasOperators: boolean;
+
   price: number;
   cartProductService = inject(CartProductService);
 
   ngOnInit(): void {
-    console.log(this.cartProductService.items.length);
+    this.cartProductService.sumCartNumber$.next(this.cartProductService.sum());
     this.price = this.cartProductService.sumPriceOfCart();
   }
 }
