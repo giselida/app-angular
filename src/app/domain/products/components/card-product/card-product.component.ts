@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap } from 'rxjs';
 import { cartKey } from '../../../../constants/cart-key';
 import { CarouselComponent } from '../../../../shared/components/carousel/carousel.component';
+import { StorageService } from '../../../../shared/services/storage/storage.service';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ProductRequest } from '../../interface/product.interface';
 import { CartProductService } from '../../service/cart-product/cart-product.service';
@@ -39,13 +40,13 @@ export class CardProductComponent implements OnInit {
     height: '400px',
     objectFIt: 'contain',
   };
-
+  storageService = inject(StorageService);
   readonly productsService = inject(ProductService);
   readonly cartProductService = inject(CartProductService);
   readonly activatedRoute = inject(ActivatedRoute);
 
   cardProducts: ProductCart[] = JSON.parse(
-    localStorage.getItem(cartKey) ?? '[]'
+    this.storageService.getItem(cartKey) ?? '[]'
   );
 
   ngOnInit(): void {
@@ -70,7 +71,7 @@ export class CardProductComponent implements OnInit {
           ...this.cartProductService.productCartNumber$.value,
         ];
         this.cartProductService.productCartNumber$.next(this.cardProducts);
-        localStorage.setItem(cartKey, JSON.stringify(this.cardProducts));
+        this.storageService.setItem(cartKey, JSON.stringify(this.cardProducts));
       });
   }
 

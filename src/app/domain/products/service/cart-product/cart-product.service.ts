@@ -5,6 +5,7 @@ import { cartKey } from '../../../../constants/cart-key';
 import { LIST_OF_PRODUCT_OF_CART } from '../../../../shared/constants/list-of-products-cart.constant';
 import { Entity } from '../../../../shared/interfaces/crud.interfaces';
 import { BaseServiceApi } from '../../../../shared/services/base/base.service';
+import { StorageService } from '../../../../shared/services/storage/storage.service';
 import { ProductCart } from '../../interface/product.interface';
 
 @Injectable({
@@ -17,10 +18,11 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
     [] as ProductCart[]
   );
   router = inject(Router);
+  storageService = inject(StorageService);
 
   constructor() {
     super();
-    const products = JSON.parse(localStorage.getItem(cartKey) ?? '[]');
+    const products = JSON.parse(this.storageService.getItem(cartKey) ?? '[]');
     this.items = products;
     this.productCartNumber$ = new BehaviorSubject<ProductCart[]>([...products]);
   }
@@ -34,6 +36,7 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
       .asObservable()
       .pipe(map((value) => value.length));
   }
+
   sumPriceOfCart() {
     const sum = this.items.reduce((acc, obj) => {
       return acc + obj.price;

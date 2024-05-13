@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomMatFormFieldValidationDirective } from '../../../../shared/directives/forms/custom-mat-form-field-validation.directive';
+import { StorageService } from '../../../../shared/services/storage/storage.service';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CustomValidators } from '../../../../shared/validators/custom.validator';
 import {
@@ -38,6 +39,7 @@ export class AuthPage implements OnInit {
   user$: Observable<UsersResponse[]>;
   user: UsersResponse | undefined;
   id = '0';
+  storageService = inject(StorageService);
   formGroupLogin = new FormGroup({
     name: new FormControl('Gisélida', [
       Validators.minLength(4),
@@ -90,7 +92,7 @@ export class AuthPage implements OnInit {
     const formValue = this.formGroupLogin.value as UsersRequestSingIn;
     if (!formValue) return;
     this.user = this.authService.login(formValue);
-
+    this.storageService.setItem('user', JSON.stringify(this.user) ?? '{}');
     this.router.navigate(['/products']);
   }
   singUp() {
@@ -104,13 +106,16 @@ export class AuthPage implements OnInit {
     this.usersResponse = this.authService.singUp(formValue);
 
     if (formValue === this.user) return;
-    localStorage.setItem('user', JSON.stringify(this.user) ?? '{}');
+    this.storageService.setItem('user', JSON.stringify(this.user) ?? '{}');
     this.router.navigate(['/products']);
   }
   getUsers() {
     this.authService.getUsers().subscribe((value) => {
       this.usersResponse = value;
     });
-    localStorage.setItem('users', JSON.stringify(this.usersResponse));
+    this.storageService.setItem(
+      'users',
+      JSON.stringify(this.usersResponse) ?? '[]'
+    );
   }
 }
