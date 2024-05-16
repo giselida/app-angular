@@ -12,5 +12,7 @@ export interface ProductRequest {
 
 export interface ProductCart
   extends Omit<ProductRequest, 'description' | 'category'> {
+  unitaryPrice: number;
   quantity: number;
+  marked: boolean;
 }

@@ -25,9 +25,9 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
             "styles": [
-              "src/styles.scss",
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/pulso-angular-components/styles/styles.scss"
+              "node_modules/pulso-angular-components/styles/styles.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -81,9 +81,9 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
             "styles": [
-              "src/styles.scss",
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/pulso-angular-components/styles/styles.scss"
+              "node_modules/pulso-angular-components/styles/styles.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           }

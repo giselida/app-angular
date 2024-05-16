@@ -40,6 +40,7 @@ export class CardProductComponent implements OnInit {
     height: '400px',
     objectFIt: 'contain',
   };
+  @Input() showTitle = true;
   storageService = inject(StorageService);
   readonly productsService = inject(ProductService);
   readonly cartProductService = inject(CartProductService);
@@ -48,6 +49,7 @@ export class CardProductComponent implements OnInit {
   cardProducts: ProductCart[] = JSON.parse(
     this.storageService.getItem(cartKey) ?? '[]'
   );
+  intervalId: any;
 
   ngOnInit(): void {
     this.activatedRoute.params
@@ -68,11 +70,54 @@ export class CardProductComponent implements OnInit {
       .subscribe((response) => {
         this.cardProducts = [
           response.data,
-          ...this.cartProductService.productCartNumber$.value,
+          ...this.cartProductService.allProducts$.value.filter(
+            (product) => product.id != response.data.id
+          ),
         ];
-        this.cartProductService.productCartNumber$.next(this.cardProducts);
+        this.cartProductService.allProducts$.next(this.cardProducts);
         this.storageService.setItem(cartKey, JSON.stringify(this.cardProducts));
       });
+  }
+
+  decrementProductQuantity(product: ProductCart) {
+    const productInMemory = this.cartProductService.productCart$.value.find(
+      (item) => item.id == product.id
+    );
+
+    if (!productInMemory || productInMemory.quantity <= 0) return;
+
+    productInMemory.quantity = product.quantity - 1;
+    productInMemory.price = productInMemory.unitaryPrice * product.quantity;
+
+    this.cartProductService.productCart$.next(
+      this.cartProductService.productCart$.value
+    );
+  }
+
+  incrementInterval(
+    product: ProductCart,
+    method: 'incrementProductQuantity' | 'decrementProductQuantity'
+  ) {
+    this.intervalId = setInterval(() => {
+      this[method](product);
+    }, 100);
+  }
+
+  removeInterval() {
+    clearInterval(this.intervalId);
+  }
+  incrementProductQuantity(product: ProductCart) {
+    const productInMemory = this.cartProductService.productCart$.value.find(
+      (item) => item.id == product.id
+    );
+    if (!productInMemory) return;
+
+    productInMemory.quantity = product.quantity + 1;
+    productInMemory.price = productInMemory.unitaryPrice * product.quantity;
+
+    this.cartProductService.productCart$.next(
+      this.cartProductService.productCart$.value
+    );
   }
 
   backRoute() {

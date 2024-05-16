@@ -1,12 +1,24 @@
 <div class="card-products">
-  @if (this.cartProductService.items.length < 1) {
+  @if (cartProductService.items.length < 1) {
   <mat-card>
     <mat-card-content>
       <span> O carrinho está vazio </span>
     </mat-card-content>
   </mat-card>
-  } @else { @for (product of cartProductService.sumCartNumber$ | async; track
-  product.id) {
+  } @else {
+  <span class="example-list-section">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="cartProductService.allComplete"
+      [indeterminate]="cartProductService.someComplete()"
+      (change)="cartProductService.setAll($event.checked); updatePrice()"
+    >
+      Marcar Todos
+    </mat-checkbox>
+  </span>
+
+  @for (product of cartProductService.productCart$ | async; track product.id) {
+
   <card-product
     [product]="product"
     [hasButtonAdd]="false"
@@ -16,7 +28,16 @@
     [content]="cardContent.content"
     [hasOperators]="false"
     [hasOptions]="true"
-  ></card-product>
+    [showTitle]="false"
+  >
+    <mat-checkbox
+      header
+      [(ngModel)]="product.marked"
+      (ngModelChange)="updatePrice()"
+    >
+      {{product.title}}
+    </mat-checkbox></card-product
+  >
   }
   <mat-card>
     <mat-card-content>

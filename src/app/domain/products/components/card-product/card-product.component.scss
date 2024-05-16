@@ -1,6 +1,28 @@
 :host {
   display: flex;
   flex-direction: column;
+
+  .mat-mdc-card-header:has(mat-checkbox) {
+    flex-direction: row;
+
+    ::ng-deep {
+      .mat-mdc-card-header-text {
+        order: 2;
+      }
+      mat-checkbox {
+        position: relative;
+        top: -5px;
+
+        label {
+          font-family: var(--mat-card-title-text-font);
+          line-height: var(--mat-card-title-text-line-height);
+          font-size: var(--mat-card-title-text-size);
+          letter-spacing: var(--mat-card-title-text-tracking);
+          font-weight: var(--mat-card-title-text-weight);
+        }
+      }
+    }
+  }
   .container-options {
     display: flex;
     flex-direction: column;
@@ -14,6 +36,31 @@
     }
     p {
       align-self: flex-end;
+    }
+    button {
+      height: 100%;
+      border-radius: 8px;
+      line-height: 0;
+      border: none;
+      background-color: transparent;
+      min-width: 48px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      outline: 1px solid transparent;
+
+      &:active {
+        outline-color: black;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
     }
   }
 }

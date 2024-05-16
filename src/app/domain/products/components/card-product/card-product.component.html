@@ -11,7 +11,8 @@
 
   <mat-card>
     <mat-card-header>
-      <mat-card-title>{{ product.title }}</mat-card-title>
+      <ng-content select="[header]"> </ng-content>
+      <mat-card-title *ngIf="showTitle">{{ product.title }}</mat-card-title>
       @if (isProductRequest(product)) {
       <mat-card-subtitle>{{ product.category.name }}</mat-card-subtitle>
       }
@@ -29,19 +30,30 @@
       ></carousel>
       @if (isProductRequest(product)) {
       <p>{{ product.description }}</p>
-      }
+      } @else {
       <div class="container-options">
         <div class="options" *ngIf="hasOptions">
-          <button mat-icon-button color="primary">-</button>
+          <button
+            (mouseup)="removeInterval()"
+            (mousedown)="incrementInterval(product, 'decrementProductQuantity')"
+            (click)="decrementProductQuantity(product)"
+          >
+            -
+          </button>
           <p *ngIf="!isProductRequest(product)" class="price">
             {{ product.quantity }}
           </p>
-          <button mat-icon-button color="primary" (click)="addProductCart()">
+          <button
+            (mouseup)="removeInterval()"
+            (mousedown)="incrementInterval(product, 'incrementProductQuantity')"
+            (click)="incrementProductQuantity(product)"
+          >
             +
           </button>
         </div>
         <p class="price">{{ product.price | currency : "BRL" : "symbol" }}</p>
       </div>
+      }
     </mat-card-content>
     <mat-card-actions>
       <button *ngIf="hasButtonAdd" mat-raised-button (click)="addProductCart()">
