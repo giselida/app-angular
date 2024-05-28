@@ -19,7 +19,7 @@ export class ProductsPage implements OnInit {
   carouselConfig = {
     width: '100%',
     height: '200px',
-    objectFIt: 'contain',
+    objectFit: 'contain',
   };
 
   hasOperators: boolean;

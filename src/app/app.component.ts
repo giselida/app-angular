@@ -30,6 +30,7 @@ export class AppComponent {
   storageService = inject(StorageService);
 
   numberProductsOfCart = this.productCartService.numberOfCart();
+
   sideNav = false;
   isMode: boolean = JSON.parse(
     this.storageService.getItem('dark-mode') ?? 'false'

@@ -34,11 +34,11 @@ export class CardProductComponent implements OnInit {
   @Input() carouselConfig: {
     width: string;
     height: string;
-    objectFIt: string;
+    objectFit: string;
   } = {
     width: '400px',
     height: '400px',
-    objectFIt: 'contain',
+    objectFit: 'contain',
   };
   @Input() showTitle = true;
   storageService = inject(StorageService);
@@ -64,34 +64,38 @@ export class CardProductComponent implements OnInit {
       });
   }
 
-  addProductCart() {
-    this.cartProductService
-      .create(this.product as ProductCart)
-      .subscribe((response) => {
-        this.cardProducts = [
-          response.data,
-          ...this.cartProductService.allProducts$.value.filter(
-            (product) => product.id != response.data.id
-          ),
-        ];
-        this.cartProductService.allProducts$.next(this.cardProducts);
-        this.storageService.setItem(cartKey, JSON.stringify(this.cardProducts));
-      });
+  addProductCart(product: ProductCart) {
+    const productInMemory = this.findProduct(product);
+
+    if (!productInMemory) {
+      this.cartProductService
+        .create(this.product as ProductCart)
+        .subscribe((response) => {
+          this.cardProducts = [
+            response.data,
+            ...this.cartProductService.allProducts$.value.filter(
+              (product) => product.id != response.data.id
+            ),
+          ];
+          this.cartProductService.allProducts$.next(this.cardProducts);
+        });
+    } else {
+      this.incrementProductQuantity(product);
+    }
   }
 
   decrementProductQuantity(product: ProductCart) {
-    const productInMemory = this.cartProductService.productCart$.value.find(
-      (item) => item.id == product.id
-    );
+    const productInMemory = this.findProduct(product);
 
-    if (!productInMemory || productInMemory.quantity <= 0) return;
+    if (!productInMemory || productInMemory.quantity <= 1) return;
 
-    productInMemory.quantity = product.quantity - 1;
-    productInMemory.price = productInMemory.unitaryPrice * product.quantity;
-
+    productInMemory.quantity -= 1;
+    productInMemory.price =
+      productInMemory.unitaryPrice * productInMemory.quantity;
     this.cartProductService.productCart$.next(
       this.cartProductService.productCart$.value
     );
+    this.updateLocalStorage();
   }
 
   incrementInterval(
@@ -100,29 +104,43 @@ export class CardProductComponent implements OnInit {
   ) {
     this.intervalId = setInterval(() => {
       this[method](product);
-    }, 100);
+    }, 150);
   }
 
   removeInterval() {
     clearInterval(this.intervalId);
   }
+
   incrementProductQuantity(product: ProductCart) {
-    const productInMemory = this.cartProductService.productCart$.value.find(
-      (item) => item.id == product.id
-    );
+    const productInMemory = this.findProduct(product);
     if (!productInMemory) return;
 
-    productInMemory.quantity = product.quantity + 1;
-    productInMemory.price = productInMemory.unitaryPrice * product.quantity;
-
+    productInMemory.quantity += 1;
+    productInMemory.price =
+      productInMemory.unitaryPrice * productInMemory.quantity;
     this.cartProductService.productCart$.next(
       this.cartProductService.productCart$.value
+    );
+    this.updateLocalStorage();
+  }
+
+  private findProduct(product: ProductCart) {
+    return this.cartProductService.productCart$.value.find(
+      (item) => item.id == product.id
+    );
+  }
+
+  private updateLocalStorage() {
+    this.storageService.setItem(
+      cartKey,
+      JSON.stringify(this.cartProductService.productCart$.value)
     );
   }
 
   backRoute() {
     history.back();
   }
+
   isProductRequest(
     product: ProductRequest | ProductCart
   ): product is ProductRequest {

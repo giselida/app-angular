@@ -37,6 +37,10 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
     });
   }
 
+  numberOfCart() {
+    return this.productCart$.asObservable().pipe(map((value) => value.length));
+  }
+
   updateCart() {
     this.productCart$.next(this.sum());
   }
@@ -50,10 +54,6 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
   setAll(completed: boolean) {
     this.productCart$.value.forEach((t) => (t.marked = completed));
     this.saveProductsToStorage(this.items);
-  }
-
-  numberOfCart() {
-    return this.productCart$.asObservable().pipe(map((value) => value.length));
   }
 
   sumPriceOfCart() {

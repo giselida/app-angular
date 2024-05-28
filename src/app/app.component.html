@@ -8,13 +8,14 @@
     mat-icon-button
     (click)="isMode = !isMode"
     [matTooltip]="isMode ? 'Desabilitar tema escuro' : 'Habilitar tema claro'"
+    *ngIf="isAccountPage"
   >
     <mat-icon
       class="theme-mode"
       [fontIcon]="isMode ? 'dark_mode' : 'light_mode'"
     ></mat-icon>
   </button>
-  <button mat-icon-button matTooltip="Notificações">
+  <button mat-icon-button matTooltip="Notificações" *ngIf="isAccountPage">
     <mat-icon fontIcon="notifications"> </mat-icon>
   </button>
 
@@ -44,10 +45,12 @@
   >
     <mat-icon
       fontIcon="shopping_cart"
-      matBadge="{{ numberProductsOfCart | async }}"
+      [matBadge]="numberProductsOfCart | async"
       matBadgeColor="warn"
+      [matBadgeHidden]="(numberProductsOfCart | async) === 0"
     ></mat-icon>
   </button>
+
   <button
     mat-icon-button
     matTooltip="Sair"

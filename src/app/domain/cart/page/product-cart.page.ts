@@ -25,7 +25,7 @@ export class CartPage implements OnInit {
   carouselConfig = {
     width: '100%',
     height: '100px',
-    objectFIt: 'contain',
+    objectFit: 'contain',
   };
 
   cardContent = {
