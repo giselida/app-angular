@@ -37,7 +37,7 @@ export class CartPage implements OnInit {
   cartProductService = inject(CartProductService);
 
   ngOnInit(): void {
-    this.cartProductService.productCart$.subscribe((value) => {
+    this.cartProductService.productCart$.subscribe(() => {
       this.updatePrice();
     });
   }

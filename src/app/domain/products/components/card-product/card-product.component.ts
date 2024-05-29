@@ -64,6 +64,19 @@ export class CardProductComponent implements OnInit {
       });
   }
 
+  private getCartProduct() {
+    this.cartProductService.getItems().subscribe((response) => {
+      this.cardProducts = response.data;
+      this.cartProductService.allProducts$.next(this.cardProducts);
+    });
+  }
+
+  removeProduct(id: number) {
+    this.cartProductService.remove(id).subscribe(() => {
+      this.getCartProduct();
+    });
+  }
+
   addProductCart(product: ProductCart) {
     const productInMemory = this.findProduct(product);
 
@@ -77,7 +90,7 @@ export class CardProductComponent implements OnInit {
               (product) => product.id != response.data.id
             ),
           ];
-          this.cartProductService.allProducts$.next(this.cardProducts);
+          this.getCartProduct();
         });
     } else {
       this.incrementProductQuantity(product);
@@ -87,7 +100,10 @@ export class CardProductComponent implements OnInit {
   decrementProductQuantity(product: ProductCart) {
     const productInMemory = this.findProduct(product);
 
-    if (!productInMemory || productInMemory.quantity <= 1) return;
+    if (!productInMemory) return;
+    if (productInMemory.quantity === 1) {
+      this.removeProduct(product.id);
+    }
 
     productInMemory.quantity -= 1;
     productInMemory.price =

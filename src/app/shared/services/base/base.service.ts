@@ -58,7 +58,7 @@ export class BaseServiceApi<T> implements CrudApiService<T> {
 
   remove(id: number): Observable<ApiResponse<Entity<T>>> {
     const item = this.items.find((item) => item.id === id);
-    this.items.filter((item) => item.id != id);
+    this.items = this.items.filter((item) => item.id != id);
     return of(fakeApiResponse(200, 'Resposta enviada com sucesso!', item!));
   }
 }

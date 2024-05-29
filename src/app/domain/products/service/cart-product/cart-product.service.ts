@@ -23,10 +23,6 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
 
   storageService = inject(StorageService);
 
-  get allComplete(): boolean {
-    return this.productCart$.value.every((item) => item.marked);
-  }
-
   constructor() {
     super();
     const products = JSON.parse(this.storageService.getItem(cartKey) ?? '[]');
@@ -35,6 +31,9 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
       this.items = items;
       this.productCart$.next(this.sum());
     });
+  }
+  get allComplete(): boolean {
+    return this.productCart$.value.every((item) => item.marked);
   }
 
   numberOfCart() {
@@ -66,8 +65,6 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
   }
 
   sum() {
-    this.saveProductsToStorage(this.items);
-
     const productsMap = [...new Set(this.items.map((product) => product.id))];
 
     const uniqueProductIds = productsMap.map((productId) => {
@@ -84,6 +81,7 @@ export class CartProductService extends BaseServiceApi<ProductCart> {
       };
     });
 
+    this.saveProductsToStorage(this.items);
     return uniqueProductIds;
   }
   private saveProductsToStorage(items: ProductCart[]) {
